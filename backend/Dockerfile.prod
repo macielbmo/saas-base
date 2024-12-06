@@ -1,0 +1,19 @@
+FROM node:20-alpine
+
+USER root
+
+USER node
+
+RUN mkdir -p /home/node/backend
+
+WORKDIR /home/node/backend
+
+COPY --chown=node:node . .
+
+RUN npm install
+
+RUN npm run build
+
+ENV NODE_ENV=prod
+
+CMD [ "npm", "run", "start:prod" ]
